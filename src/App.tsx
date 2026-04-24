@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useTheme } from './hooks/useTheme';
+
 import { GlowOrb } from './components/GlowOrb';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
@@ -14,28 +15,45 @@ import { Footer } from './components/Footer';
 export default function App() {
   const { toggleTheme, isDark } = useTheme();
 
-  // Apply theme class to body for global theming
+  // GLOBAL THEME SYSTEM (LIGHT IS PRIMARY)
   useEffect(() => {
-    document.body.style.backgroundColor = isDark ? '#060e1a' : '#f8fafc';
-    document.body.style.color = isDark ? '#f8fafc' : '#0a1628';
+    const root = document.documentElement;
+
+    if (isDark) {
+      // DARK MODE (inversion layer)
+      document.body.style.backgroundColor = '#060e1a';
+      document.body.style.color = '#f8fafc';
+
+      root.style.setProperty('--bg', '#060e1a');
+      root.style.setProperty('--text', '#f8fafc');
+      root.style.setProperty('--muted', 'rgba(248, 250, 252, 0.7)');
+    } else {
+      // LIGHT MODE (PRIMARY)
+      document.body.style.backgroundColor = '#ffffff';
+      document.body.style.color = '#0a0a0a';
+
+      root.style.setProperty('--bg', '#ffffff');
+      root.style.setProperty('--text', '#0a0a0a');
+      root.style.setProperty('--muted', 'rgba(0, 0, 0, 0.6)');
+    }
   }, [isDark]);
 
   return (
     <div
       className="relative min-h-screen overflow-x-hidden"
       style={{
-        backgroundColor: isDark ? '#060e1a' : '#f8fafc',
+        backgroundColor: isDark ? '#060e1a' : '#ffffff',
         fontFamily: 'Inter, sans-serif',
       }}
     >
-      {/* Global glowing orb cursor */}
+      {/* Ambient cursor glow */}
       <GlowOrb isDark={isDark} />
 
-      {/* Navigation */}
+      {/* NAVBAR */}
       <Navbar isDark={isDark} onToggleTheme={toggleTheme} />
 
-      {/* Main content */}
-      <main>
+      {/* MAIN CONTENT */}
+      <main className="relative z-10">
         <Hero isDark={isDark} />
         <About isDark={isDark} />
         <Services isDark={isDark} />
@@ -45,7 +63,7 @@ export default function App() {
         <Contact isDark={isDark} />
       </main>
 
-      {/* Footer */}
+      {/* FOOTER */}
       <Footer isDark={isDark} />
     </div>
   );
