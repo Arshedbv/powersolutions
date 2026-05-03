@@ -6,6 +6,7 @@ import { ProductPage } from "./pages/ProductPage";
 import { useTheme } from "./hooks/useTheme";
 import { AllProducts } from "./components/AllProducts";
 import { ProductDetail } from "./pages/ProductDetail";
+import { WhatsAppWidget } from "./components/WhatsAppWidget";
 
 function App() {
   const location = useLocation();
@@ -34,6 +35,7 @@ function App() {
           <Route path="/product/:productId" element={<ProductDetail />} />
         </Routes>
       </AnimatePresence>
+      <WhatsAppWidget isDark={isDark} />
     </div>
   );
 }

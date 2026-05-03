@@ -11,7 +11,9 @@ export const ProductDetail = () => {
   const navigate = useNavigate();
   const { isDark } = useTheme();
 
-  // ✅ Scroll to top when product changes
+  const PHONE_NUMBER = "96879763931";
+
+  // ✅ Scroll to top on product change
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, [productId]);
@@ -39,7 +41,7 @@ export const ProductDetail = () => {
   const product =
     matchingCompanies[0].products.find((p) => p.id === productId);
 
-  // ✅ Unique other products (no duplicates)
+  // ✅ Unique other products
   const otherProducts = useMemo(() => {
     const all = matchingCompanies.flatMap((company) =>
       company.products.filter((p) => p.id !== productId)
@@ -54,6 +56,34 @@ export const ProductDetail = () => {
 
     return Array.from(uniqueMap.values()).slice(0, 6);
   }, [matchingCompanies, productId]);
+
+  // ✅ WhatsApp Redirect Function
+  const redirectToWhatsApp = () => {
+    if (!product) return;
+
+    const message = encodeURIComponent(
+      `Dear PCS OMAN Team,
+
+I would like to request a quotation for the following product:
+
+Product: ${product.name}
+Category: ${product.category}
+
+Kindly share pricing, availability, and technical documentation.
+
+Thank you.`
+    );
+
+    const isMobileDevice = /Android|iPhone|iPad|iPod/i.test(
+      navigator.userAgent
+    );
+
+    const url = isMobileDevice
+      ? `https://api.whatsapp.com/send?phone=${PHONE_NUMBER}&text=${message}`
+      : `https://web.whatsapp.com/send?phone=${PHONE_NUMBER}&text=${message}`;
+
+    window.open(url, "_blank");
+  };
 
   return (
     <section className={`${bg} relative py-24 overflow-hidden`}>
@@ -70,13 +100,11 @@ export const ProductDetail = () => {
       </div>
 
       <div className="max-w-7xl mx-auto px-6">
-
         {/* ✅ Back Button */}
         <button
           onClick={() => navigate(-1)}
-          className={`mb-10 text-sm font-semibold transition ${
-            isDark ? "text-blue-400" : "text-blue-600"
-          }`}
+          className={`mb-10 text-sm font-semibold transition ${isDark ? "text-blue-400" : "text-blue-600"
+            }`}
         >
           ← Back to Products
         </button>
@@ -102,9 +130,8 @@ export const ProductDetail = () => {
           {/* ✅ Content */}
           <div>
             <div
-              className={`text-xs font-semibold tracking-widest uppercase mb-3 ${
-                isDark ? "text-blue-400" : "text-blue-600"
-              }`}
+              className={`text-xs font-semibold tracking-widest uppercase mb-3 ${isDark ? "text-blue-400" : "text-blue-600"
+                }`}
             >
               {product?.category}
             </div>
@@ -120,8 +147,10 @@ export const ProductDetail = () => {
               {product?.description}
             </p>
 
+            {/* ✅ Request Quote Button */}
             <button
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold bg-blue-600 text-white hover:bg-blue-500 transition"
+              onClick={redirectToWhatsApp}
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold bg-blue-600 text-white hover:bg-blue-500 transition active:scale-95"
             >
               Request Quote
               <ChevronRight className="w-4 h-4" />
@@ -181,9 +210,8 @@ export const ProductDetail = () => {
                     </h4>
 
                     <span
-                      className={`text-xs font-medium uppercase tracking-wide ${
-                        isDark ? "text-blue-400" : "text-blue-600"
-                      }`}
+                      className={`text-xs font-medium uppercase tracking-wide ${isDark ? "text-blue-400" : "text-blue-600"
+                        }`}
                     >
                       {p.category}
                     </span>
