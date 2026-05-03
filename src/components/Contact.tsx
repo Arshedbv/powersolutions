@@ -11,14 +11,14 @@ const contactInfo = [
   {
     icon: Mail,
     label: 'Email',
-    value: 'info@pcsoman.com',
-    href: 'mailto:info@pcsoman.com',
+    value: 'sales@pcsoman.com',
+    href: 'mailto:sales@pcsoman.com',
   },
   {
     icon: Phone,
     label: 'Phone',
-    value: '+968 2449 XXXX',
-    href: 'tel:+96824490000',
+    value: '+968 79763931',
+    href: 'tel:+96879763931',
   },
   {
     icon: MapPin,
