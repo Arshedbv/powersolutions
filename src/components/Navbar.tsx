@@ -8,18 +8,18 @@ interface NavbarProps {
 }
 
 const navLinks = [
-  { label: 'Home',         href: '#hero' },
-  { label: 'About',        href: '#about' },
-  { label: 'Services',     href: '#services' },
-  { label: 'Products',     href: '#products' },
+  { label: 'Home', href: '#hero' },
+  { label: 'About', href: '#about' },
+  { label: 'Services', href: '#services' },
+  { label: 'Products', href: '#products' },
   { label: 'Capabilities', href: '#capabilities' },
-  { label: 'Approach',     href: '#approach' },
-  { label: 'Contact',      href: '#contact' },
+  { label: 'Approach', href: '#approach' },
+  { label: 'Contact', href: '#contact' },
 ];
 
 export const Navbar: React.FC<NavbarProps> = ({ isDark, onToggleTheme }) => {
-  const [scrolled, setScrolled]       = useState(false);
-  const [mobileOpen, setMobileOpen]   = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('hero');
 
   useEffect(() => {
@@ -76,16 +76,16 @@ export const Navbar: React.FC<NavbarProps> = ({ isDark, onToggleTheme }) => {
             >
               <div
                 className={`
-                  relative w-8 h-8 rounded-lg flex items-center justify-center
-                  transition-all duration-300 group-hover:scale-110
-                  ${isDark
-                    ? 'bg-blue-600 shadow-[0_0_20px_rgba(37,99,235,0.5)]'
-                    : 'bg-blue-700 shadow-[0_0_16px_rgba(37,99,235,0.3)]'}
-                `}
+    relative w-8 h-8 rounded-lg flex items-center justify-center
+    transition-all duration-300 group-hover:scale-110
+  `}
               >
-                <Zap className="w-4 h-4 text-white" strokeWidth={2.5} />
+                <img
+                  src="/logo/favicon.svg"
+                  alt="Logo"
+                  className="h-8 w-8 object-cover"
+                />
               </div>
-
               <div className="flex flex-col leading-none">
                 <span
                   className={`
@@ -102,9 +102,8 @@ export const Navbar: React.FC<NavbarProps> = ({ isDark, onToggleTheme }) => {
                   PCS OMAN
                 </span>
                 <span
-                  className={`text-[9px] tracking-widest uppercase ${
-                    isDark ? 'text-blue-400' : 'text-blue-600'
-                  }`}
+                  className={`text-[9px] tracking-widest uppercase ${isDark ? 'text-blue-400' : 'text-blue-600'
+                    }`}
                 >
                   Power Control Solutions
                 </span>
