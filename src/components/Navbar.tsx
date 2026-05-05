@@ -76,14 +76,14 @@ export const Navbar: React.FC<NavbarProps> = ({ isDark, onToggleTheme }) => {
             >
               <div
                 className={`
-    relative w-8 h-8 rounded-lg flex items-center justify-center
+    relative w-12 h-12 rounded-lg flex items-center justify-center
     transition-all duration-300 group-hover:scale-110
   `}
               >
                 <img
                   src="/logo/favicon.svg"
                   alt="Logo"
-                  className="h-8 w-8 object-cover"
+                  className="h-12 w-12 object-cover"
                 />
               </div>
               <div className="flex flex-col leading-none">
