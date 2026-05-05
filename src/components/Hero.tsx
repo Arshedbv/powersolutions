@@ -34,7 +34,6 @@ export const Hero: React.FC<HeroProps> = ({ isDark }) => {
     visible: { transition: { staggerChildren: 0.12 } },
   };
 
-  // ✅ No layout shift animation (removed heavy y movement)
   const itemVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
@@ -50,36 +49,58 @@ export const Hero: React.FC<HeroProps> = ({ isDark }) => {
         isDark ? 'bg-slate-950' : 'bg-white'
       }`}
     >
-      {/* Background */}
+      {/* ================= Background ================= */}
       <div className="absolute inset-0 z-0 overflow-hidden">
+
         <AnimatePresence mode="wait">
-          <motion.img
+          <motion.div
             key={isDark ? 'dark-bg' : 'light-bg'}
-            src={
-              isDark
-                ? '/images/hero-bg.jpg'
-                : '/images/hero-bg-light.png'
-            }
-            alt="Industrial Platform"
-            className="absolute inset-0 w-full h-full object-cover object-center"
+            className="absolute inset-0"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.8 }}
-          />
+            transition={{ duration: 0.8, ease: 'easeInOut' }}
+            style={{
+              backfaceVisibility: 'hidden',
+              transform: 'translateZ(0)',
+            }}
+          >
+            <picture>
+              {/* Desktop Image */}
+              <source
+                media="(min-width: 768px)"
+                srcSet={
+                  isDark
+                    ? '/images/hero-bg.jpg'
+                    : '/images/hero-bg-light.png'
+                }
+              />
+
+              {/* Mobile Image */}
+              <img
+                src={
+                  isDark
+                    ? '/images/hero-bg-dark-mobile.png'
+                    : '/images/hero-bg-light-mobile.png'
+                }
+                alt="Industrial Background"
+                className="w-full h-full object-cover object-center"
+              />
+            </picture>
+          </motion.div>
         </AnimatePresence>
 
         {/* Overlay */}
         <div
           className={
             isDark
-              ? 'absolute inset-0 bg-gradient-to-r from-slate-950/95 via-slate-950/80 to-slate-950/30'
-              : 'absolute inset-0 bg-gradient-to-r from-white/80 via-white/60 to-white/30'
+              ? 'absolute inset-0 bg-gradient-to-r from-slate-950/85 via-slate-950/70 to-slate-950/30'
+              : 'absolute inset-0 bg-gradient-to-r from-white/40 via-white/20 to-white/10'
           }
         />
       </div>
 
-      {/* Content */}
+      {/* ================= Content ================= */}
       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 w-full pt-32 pb-20">
         <div className="max-w-4xl">
           <motion.div
@@ -232,6 +253,7 @@ export const Hero: React.FC<HeroProps> = ({ isDark }) => {
                 Muscat – Sultanate of Oman
               </div>
             </motion.div>
+
           </motion.div>
         </div>
       </div>
