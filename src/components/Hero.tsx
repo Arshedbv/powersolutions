@@ -45,9 +45,8 @@ export const Hero: React.FC<HeroProps> = ({ isDark }) => {
 
   return (
     <section
-      className={`relative min-h-[100svh] flex items-center overflow-hidden transition-colors duration-500 ${
-        isDark ? 'bg-slate-950' : 'bg-white'
-      }`}
+      className={`relative min-h-[100svh] flex items-center overflow-hidden transition-colors duration-500 ${isDark ? 'bg-slate-950' : 'bg-white'
+        }`}
     >
       {/* ================= Background ================= */}
       <div className="absolute inset-0 z-0 overflow-hidden">
@@ -241,12 +240,16 @@ export const Hero: React.FC<HeroProps> = ({ isDark }) => {
               }
             >
               <div className="flex items-center gap-2">
-                <Phone className="w-4 h-4 text-blue-600" />
-                +968 79763931
+                <a href='tel:+96879763931' style={{ display: 'flex', gap: "5px" }}>
+                  <Phone className="w-4 h-4 text-blue-600" />
+                  +968 79763931
+                </a>
               </div>
               <div className="flex items-center gap-2">
-                <Mail className="w-4 h-4 text-blue-600" />
-                sales@pcsoman.com
+                <a href='mailto:sales@pcsoman.com' style={{ display: 'flex', gap: "5px", alignItems: 'center' }}>
+                  <Mail className="w-4 h-4 text-blue-600" />
+                  sales@pcsoman.com
+                </a>
               </div>
               <div className="flex items-center gap-2">
                 <MapPin className="w-4 h-4 text-blue-600" />

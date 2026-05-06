@@ -62,12 +62,12 @@ export const Footer: React.FC<FooterProps> = ({ isDark }) => {
             <div className="space-y-2.5">
               {[
                 { icon: Mail, text: 'info@pcsoman.com' },
-                { icon: Phone, text: '+968 2449 XXXX' },
+                { icon: Phone, text: '+968 79763931', href: 'tel:+96879763931' },
                 { icon: MapPin, text: 'Muscat, Sultanate of Oman' },
-              ].map(({ icon: Icon, text }) => (
+              ].map(({ icon: Icon, text, href }) => (
                 <div key={text} className="flex items-center gap-2.5">
                   <Icon className="w-3.5 h-3.5 text-blue-400 flex-shrink-0" />
-                  <span className="text-xs text-slate-400">{text}</span>
+                  <a href={href}><span className="text-xs text-slate-400">{text}</span></a>
                 </div>
               ))}
             </div>
