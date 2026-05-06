@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Sun, Moon, Zap } from 'lucide-react';
+import { Menu, X, Sun, Moon } from 'lucide-react';
 
 interface NavbarProps {
   isDark: boolean;
@@ -46,11 +46,6 @@ export const Navbar: React.FC<NavbarProps> = ({ isDark, onToggleTheme }) => {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
   };
 
-  /* ── Nav background logic ──────────────────────────────────────
-     • Not scrolled → semi-transparent glass (works on any hero bg)
-     • Scrolled + dark → deep navy glass
-     • Scrolled + light → frosted white glass
-  ─────────────────────────────────────────────────────────────── */
   const navBg = scrolled
     ? isDark
       ? 'nav-glass-dark'
@@ -66,46 +61,55 @@ export const Navbar: React.FC<NavbarProps> = ({ isDark, onToggleTheme }) => {
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${navBg}`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16 md:h-20">
+          <div className="flex items-center justify-between h-14 sm:h-16 md:h-20">
 
             {/* ── Logo ── */}
             <a
               href="#hero"
               onClick={e => { e.preventDefault(); handleNavClick('#hero'); }}
-              className="flex items-center gap-2.5 group"
+              className="flex items-center gap-1.5 sm:gap-2.5 group"
             >
-              <div
-                className={`
-    relative w-12 h-12 rounded-lg flex items-center justify-center
-    transition-all duration-300 group-hover:scale-110
-  `}
-              >
+              {/* Logo Image */}
+              <div className="relative w-9 h-9 sm:w-10 sm:h-10 md:w-12 md:h-12 flex items-center justify-center transition-all duration-300 group-hover:scale-110">
                 <img
                   src="/logo/favicon.svg"
                   alt="Logo"
-                  className="h-12 w-12 object-cover"
+                  className="w-full h-full object-cover"
                 />
               </div>
-              <div className="flex flex-col leading-none">
+
+              {/* Brand Text */}
+              <div className="flex flex-col leading-tight">
+
+                {/* Mobile short name */}
+                <span className="block sm:hidden text-sm font-bold tracking-tight">
+                  POWER CONTROL SOLUTIONS
+                </span>
+
+                {/* Full name */}
                 <span
                   className={`
-                    font-bold tracking-tight
+                    hidden sm:block font-bold tracking-tight
                     ${isDark ? 'text-white' : 'text-slate-900'}
+                    text-sm sm:text-lg md:text-xl lg:text-[26px]
                   `}
                   style={{
                     fontFamily: 'Space Grotesk, sans-serif',
-                    fontWeight: 700,
-                    fontSize: '13px',
                     letterSpacing: '-0.02em',
                   }}
                 >
-                  PCS OMAN
+                  POWER CONTROL SOLUTIONS
                 </span>
+
+                {/* Subtitle */}
                 <span
-                  className={`text-[9px] tracking-widest uppercase ${isDark ? 'text-blue-400' : 'text-blue-600'
-                    }`}
+                  className={`
+                    uppercase tracking-widest
+                    text-[7px] sm:text-[8px] md:text-[9px]
+                    ${isDark ? 'text-blue-400' : 'text-blue-600'}
+                  `}
                 >
-                  Power Control Solutions
+                  Oman
                 </span>
               </div>
             </a>
@@ -149,14 +153,14 @@ export const Navbar: React.FC<NavbarProps> = ({ isDark, onToggleTheme }) => {
             </div>
 
             {/* ── Right actions ── */}
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2 sm:gap-3">
 
               {/* Theme toggle */}
               <button
                 onClick={onToggleTheme}
                 aria-label="Toggle theme"
                 className={`
-                  w-9 h-9 rounded-lg flex items-center justify-center
+                  w-8 h-8 sm:w-9 sm:h-9 rounded-lg flex items-center justify-center
                   transition-all duration-200 hover:scale-110
                   ${isDark
                     ? 'bg-white/10 text-yellow-300 hover:bg-white/20'
@@ -167,7 +171,7 @@ export const Navbar: React.FC<NavbarProps> = ({ isDark, onToggleTheme }) => {
                 {isDark ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
               </button>
 
-              {/* CTA button */}
+              {/* CTA */}
               <a
                 href="#contact"
                 onClick={e => { e.preventDefault(); handleNavClick('#contact'); }}
@@ -184,12 +188,12 @@ export const Navbar: React.FC<NavbarProps> = ({ isDark, onToggleTheme }) => {
                 Get in Touch
               </a>
 
-              {/* Mobile hamburger */}
+              {/* Mobile menu */}
               <button
                 onClick={() => setMobileOpen(prev => !prev)}
                 aria-label="Toggle menu"
                 className={`
-                  lg:hidden w-9 h-9 rounded-lg flex items-center justify-center
+                  lg:hidden w-8 h-8 sm:w-9 sm:h-9 rounded-lg flex items-center justify-center
                   transition-all duration-200
                   ${isDark
                     ? 'bg-white/10 text-white hover:bg-white/20'
@@ -211,17 +215,12 @@ export const Navbar: React.FC<NavbarProps> = ({ isDark, onToggleTheme }) => {
             initial={{ opacity: 0, y: -16 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -16 }}
-            transition={{ duration: 0.25, ease: 'easeOut' }}
+            transition={{ duration: 0.25 }}
             className={`
               fixed inset-x-0 top-16 z-40 mx-3 mt-1
               rounded-2xl overflow-hidden
               ${isDark ? 'glass-dark' : 'glass-light'}
             `}
-            style={{
-              boxShadow: isDark
-                ? '0 20px 60px rgba(0,0,0,0.5)'
-                : '0 20px 60px rgba(0,0,0,0.1)',
-            }}
           >
             <div className="p-4 flex flex-col gap-1">
               {navLinks.map((link, i) => {
@@ -236,7 +235,6 @@ export const Navbar: React.FC<NavbarProps> = ({ isDark, onToggleTheme }) => {
                     onClick={e => { e.preventDefault(); handleNavClick(link.href); }}
                     className={`
                       px-4 py-3 rounded-xl text-sm font-medium
-                      transition-all duration-200
                       ${isActive
                         ? isDark
                           ? 'bg-blue-600/20 text-blue-400'
@@ -251,25 +249,6 @@ export const Navbar: React.FC<NavbarProps> = ({ isDark, onToggleTheme }) => {
                   </motion.a>
                 );
               })}
-
-              {/* Mobile CTA */}
-              <div className={`
-                mt-2 pt-3 border-t
-                ${isDark ? 'border-white/10' : 'border-slate-200'}
-              `}>
-                <a
-                  href="#contact"
-                  onClick={e => { e.preventDefault(); handleNavClick('#contact'); }}
-                  className="
-                    w-full flex items-center justify-center
-                    px-4 py-3 rounded-xl text-sm font-semibold
-                    bg-blue-600 hover:bg-blue-500 text-white
-                    transition-colors duration-200
-                  "
-                >
-                  Get in Touch
-                </a>
-              </div>
             </div>
           </motion.div>
         )}
